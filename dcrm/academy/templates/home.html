@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1> Hello world!</h1>
+<div class="col-md-6 offset-md-3">
+    <br/>
+    <h1>Авторизуйтесь для входа:</h1>
+    <br/>
+    <form method="POST" action="{% url 'home' %}">
+        {% csrf_token %}
+        <form>
+          <div class="mb-3">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp", placeholder="Имя.Фамилия@tms-cs.ru">
+          </div>
+            <br/>
+          <div class="mb-3">
+            <input type="password" class="form-control" id="exampleInputPassword1", placeholder="Ваш пароль">
+          </div>
+            <br/>
+          <button type="submit" class="btn btn-secondary">Войти</button>
+        </form>
+    </form>
+</div>
 {% endblock%}
