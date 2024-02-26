@@ -3,21 +3,27 @@
 {% block content %}
 <div class="col-md-6 offset-md-3">
     <br/>
-    <h1>Авторизуйтесь для входа:</h1>
-    <br/>
-    <form method="POST" action="{% url 'home' %}">
-        {% csrf_token %}
-        <form>
-          <div class="mb-3">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp", placeholder="Имя.Фамилия@tms-cs.ru">
-          </div>
-            <br/>
-          <div class="mb-3">
-            <input type="password" class="form-control" id="exampleInputPassword1", placeholder="Ваш пароль">
-          </div>
-            <br/>
-          <button type="submit" class="btn btn-secondary">Войти</button>
+    {% if user.is_authenticated %}
+
+    <h1>Вы вошли!</h1>
+
+    {% else %}
+        <h1>Авторизуйтесь для входа:</h1>
+        <br/>
+        <form method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <form>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="username" placeholder="Имя пользователя" required>
+              </div>
+                <br/>
+              <div class="mb-3">
+                <input type="password" class="form-control" name="password" placeholder="Пароль" required>
+              </div>
+                <br/>
+              <button type="submit" class="btn btn-secondary">Войти</button>
+            </form>
         </form>
-    </form>
+    {% endif %}
 </div>
 {% endblock%}
