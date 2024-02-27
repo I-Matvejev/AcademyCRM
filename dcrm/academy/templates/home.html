@@ -12,7 +12,6 @@
         <br/>
         <form method="POST" action="{% url 'home' %}">
             {% csrf_token %}
-            <form>
               <div class="mb-3">
                 <input type="text" class="form-control" name="username" placeholder="Имя пользователя" required>
               </div>
@@ -22,8 +21,8 @@
               </div>
                 <br/>
               <button type="submit" class="btn btn-secondary">Войти</button>
-            </form>
         </form>
     {% endif %}
 </div>
+
 {% endblock%}
