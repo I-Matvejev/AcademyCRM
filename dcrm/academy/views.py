@@ -10,7 +10,7 @@ def home(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, "Вы успешно авторизовались!")
+            # messages.success(request, "Вы успешно авторизовались!")
             return redirect('home')
         else:
             messages.success(request, "Возникла проблема, попробуйте еще раз...")
@@ -19,5 +19,13 @@ def home(request):
 
 def logout_user(request):
     logout(request)
-    messages.success(request, "Вы успешно вышли.")
+    # messages.success(request, "Вы успешно вышли.")
     return redirect('home')
+
+
+def new_course(request):
+    pass
+
+
+def all_courses(request):
+    pass
