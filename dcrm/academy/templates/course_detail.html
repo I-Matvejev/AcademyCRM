@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="card">
-  <div class="card-header">
-      <strong>{{ course_detail.course_name }}</strong>
-  </div>
-  <div class="card-body">
-    <p class="card-text">
-        <strong>Дата:</strong>{{ course_detail.course_date_begin }} - {{ course_detail.course_date_end }} </p>
-    <p class="card-text">
-        <strong>Время:</strong>{{ course_detail.course_time_begin }} - {{ course_detail.course_time_end }} </p>
-    <p class="card-text">
-        <strong>Место:</strong>{{ course_detail.course_location }} </p>
-    <p class="card-text">
-        <strong>Преподаватель:</strong>{{ course_detail.course_tutor }} </p>
-    <p class="card-text">
-        <strong>Стандарт:</strong>{{ course_detail.course_standard }} </p>
-  </div>
+<br/>
+<div class="col-md-6 offset-md-4">
+    <div class="card mb-3" style="width: 18rem;">
+      <div class="card-header">
+          <strong>{{ course_detail.course_name }}</strong>
+      </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <strong>Дата:  </strong>{{ course_detail.course_date_begin }} - {{ course_detail.course_date_end }} </li>
+            <li class="list-group-item">
+                <strong>Время:  </strong>{{ course_detail.course_time_begin }} - {{ course_detail.course_time_end }} </li>
+            <li class="list-group-item">
+                <strong>Место:  </strong>{{ course_detail.course_location }} </li>
+            <li class="list-group-item">
+                <strong>Преподаватель:  </strong>{{ course_detail.course_tutor }} </li>
+            <li class="list-group-item">
+                <strong>Стандарт:  </strong>{{ course_detail.course_standard }} </li>
+          </ul>
+    </div>
 </div>
-
-
 
 
 {% endblock %}

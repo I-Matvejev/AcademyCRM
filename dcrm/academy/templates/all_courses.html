@@ -19,7 +19,7 @@
           {% if courses %}
             {% for course in courses %}
             <tr>
-                <td><a href="{% url 'course_detail' course.id %}">{{ course.course_name }}</td>
+                <td><a href="{% url 'course_detail' course.id %}">{{ course.course_name }}</a></td>
                 <td>{{ course.course_date_begin }}</td>
                 <td>{{ course.course_time_begin }}</td>
                 <td>{{ course.course_location }}</td>
