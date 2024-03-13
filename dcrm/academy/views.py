@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Course, Attendee
+from .forms import NewCourseForm
 
 
 def home(request):
@@ -25,7 +26,17 @@ def logout_user(request):
 
 
 def new_course(request):
-    pass
+    form = NewCourseForm(request.POST or None)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if form.is_valid():
+                new_course = form.save()
+                messages.success(request, "Добавлен новый курс!")
+                return redirect('all_courses')
+        return render(request, 'new_course.html', {'form': form})
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')
 
 
 def all_courses(request):

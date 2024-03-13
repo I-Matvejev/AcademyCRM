@@ -1,14 +1,28 @@
 {% extends 'base.html' %}
+{% block content %}
 
 {% if user.is_authenticated %}
 
-{% block content %}
+<div class="col-md-6 offset-md-3">
+
+    <h1>Добавить курс</h1><br/>
+
+    <form method="POST" action="{% url 'new_course' %}">
+        {% csrf_token %}
+        {{ form.as_p}}
+
+    <br/>
+        <button type="submit" class="btn btn-secondary">Добавить курс</button>
+    </form>
+
+</div>
 
 
-{% endblock %}
 
 {% else %}
 
 <h2> Вы должны быть авторизованы для просмотра этой страницы! </h2>
 
 {% endif %}
+
+{% endblock %}
