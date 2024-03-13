@@ -7,4 +7,5 @@ urlpatterns = [
     path('new_course/', views.new_course, name='new_course'),
     path('all_courses/', views.all_courses, name='all_courses'),
     path('course/<int:pk>', views.course_detail, name='course_detail'),
+    # path('delete_course/<int:pk>', views.delete_course, name='delete_course'),
 ]

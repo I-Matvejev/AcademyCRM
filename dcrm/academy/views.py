@@ -51,3 +51,14 @@ def course_detail(request, pk):
     else:
         messages.success(request, "Вы не авторизованы для просмотра этой страницы!")
         return redirect('home')
+
+
+# def delete_course(request, pk):
+#     if request.user.is_authenticated:
+#         delete_it = Course.objects.get(id=pk)
+#         delete_it.delete()
+#         messages.success(request, "Курс успешно удален!")
+#         return redirect('home')
+#     else:
+#         messages.success(request, "Вы не авторизованы для этого действия!")
+#         return redirect('home')
