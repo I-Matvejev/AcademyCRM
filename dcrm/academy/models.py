@@ -3,11 +3,11 @@ from django.db import models
 
 class Course(models.Model):
     course_name = models.CharField(max_length=150, blank=False)
-    course_date_begin = models.DateTimeField(blank=False)
+    course_date_begin = models.DateField(blank=False)
     course_time_begin = models.TimeField(blank=False)
     course_location = models.CharField(max_length=100)
     course_tutor = models.CharField(max_length=100)
-    course_date_end = models.DateTimeField()
+    course_date_end = models.DateField()
     course_time_end = models.TimeField()
     course_standard = models.CharField(max_length=100)
 

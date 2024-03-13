@@ -1,14 +1,40 @@
 {% extends 'base.html' %}
 
-{% if user.is_authenticated %}
-
 {% block content %}
 
-
-{% endblock %}
+{% if user.is_authenticated %}
+<div class="col-md-6 offset-md-3">
+    <h1> Все курсы: </h1>
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Название</th>
+              <th scope="col">Дата начала</th>
+              <th scope="col">Время начала</th>
+              <th scope="col">Место</th>
+              <th scope="col">Преподаватель</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% if courses %}
+            {% for course in courses %}
+            <tr>
+                <td><a href="{% url 'course_detail' course.id %}">{{ course.course_name }}</td>
+                <td>{{ course.course_date_begin }}</td>
+                <td>{{ course.course_time_begin }}</td>
+                <td>{{ course.course_location }}</td>
+                <td>{{ course.course_tutor }}</td>
+            </tr>
+           {% endfor %}
+          {% endif %}
+          </tbody>
+        </table>
+</div>
 
 {% else %}
 
 <h2> Вы должны быть авторизованы для просмотра этой страницы! </h2>
 
 {% endif %}
+
+{% endblock %}
