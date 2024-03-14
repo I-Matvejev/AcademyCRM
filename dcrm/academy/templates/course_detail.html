@@ -22,6 +22,9 @@
     </div>
     <a class="btn btn-secondary " href="{% url 'all_courses' %}" role="button">Назад</a>
 
+    <a class="btn btn-danger " href="{% url 'delete_course' course_detail.id %}" role="button">Удалить</a>
+
+    <a class="btn btn-secondary " href="{% url 'update_course' course_detail.id %}" role="button">Изменить</a>
 </div>
 
 

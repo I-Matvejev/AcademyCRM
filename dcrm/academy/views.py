@@ -53,12 +53,26 @@ def course_detail(request, pk):
         return redirect('home')
 
 
-# def delete_course(request, pk):
-#     if request.user.is_authenticated:
-#         delete_it = Course.objects.get(id=pk)
-#         delete_it.delete()
-#         messages.success(request, "Курс успешно удален!")
-#         return redirect('home')
-#     else:
-#         messages.success(request, "Вы не авторизованы для этого действия!")
-#         return redirect('home')
+def delete_course(request, pk):
+    if request.user.is_authenticated:
+        delete_it = Course.objects.get(id=pk)
+        delete_it.delete()
+        messages.success(request, "Курс успешно удален!")
+        return redirect('home')
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')
+
+
+def update_course(request, pk):
+    if request.user.is_authenticated:
+        current_course = Course.objects.get(id=pk)
+        form = NewCourseForm(request.POST or None, instance=current_course)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Данные успешно изменены!")
+            return redirect('all_courses')
+        return render(request, 'update_course.html', {'form': form})
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')
