@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+<div class="col-md-6 offset-md-4">
+{% block content %}
+<br/>
+
+    <div class="container text-center">
+        <div class="card mb-3 mx-auto" style="width: 18rem;">
+          <div class="card-header">
+              <strong>{{ attendee_detail.attendee_last_name }} {{ attendee_detail.attendee_first_name }}</strong>
+          </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>Отчество:  </strong>{{ attendee_detail.attendee_fathers_name }} </li>
+                <li class="list-group-item">
+                    <strong>Телефон:  </strong>{{ attendee_detail.attendee_phone  }} </li>
+                <li class="list-group-item">
+                    <strong>Эл. почта:  </strong>{{ attendee_detail.attendee_email }} </li>
+                <li class="list-group-item">
+                    <strong>Компания:  </strong>{{ attendee_detail.attendee_company }} </li>
+                <li class="list-group-item">
+                    <strong>Город:  </strong>{{ attendee_detail.attendee_city }} </li>
+              </ul>
+        </div>
+        <a class="btn btn-secondary " href="{% url 'course_attendees_all' attendee_detail.attendee_course_id.id %}" role="button">Назад</a>
+
+        <a class="btn btn-danger " href="{% url 'delete_attendee' attendee_detail.id %}" role="button">Удалить</a>
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+{% endblock %}

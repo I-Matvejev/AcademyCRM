@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.urls import reverse_lazy
+
 from .models import Course, Attendee
 from .forms import NewCourseForm
 
@@ -81,3 +83,23 @@ def update_course(request, pk):
 def course_attendees_all(request, course_id):
     all_attendees = Attendee.objects.filter(attendee_course_id=course_id)
     return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees})
+
+
+def attendee_detail(request, pk):
+    if request.user.is_authenticated:
+        attendee_detail = Attendee.objects.get(id=pk)
+        return render(request, 'attendee_detail.html', {'attendee_detail': attendee_detail})
+    else:
+        messages.success(request, "Вы не авторизованы для просмотра этой страницы!")
+        return redirect('home')
+
+
+def delete_attendee(request, pk):
+    if request.user.is_authenticated:
+        delete_it = Attendee.objects.get(id=pk)
+        delete_it.delete()
+        messages.success(request, "Слушатель успешно удален!")
+        return redirect('all_courses')
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')

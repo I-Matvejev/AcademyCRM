@@ -17,13 +17,13 @@
           {% if all_attendees %}
             {% for attendee in all_attendees %}
             <tr>
-                <td>{{ attendee.attendee_last_name }}</td>
+                <td><a href="{% url 'attendee_detail' attendee.id %}">{{ attendee.attendee_last_name }}</a></td>
                 <td>{{ attendee.attendee_first_name }}</td>
                 <td>{{ attendee.attendee_fathers_name }}</td>
             </tr>
             {% endfor %}
           {% else %}
-          <h2>Слушатели пока не занесены в базу</h2>
+          <p>Слушатели пока не занесены в базу</p>
           {% endif %}
           </tbody>
         </table>
