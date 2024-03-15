@@ -20,8 +20,8 @@
             {% for course in courses %}
             <tr>
                 <td><a href="{% url 'course_detail' course.id %}">{{ course.course_name }}</a></td>
-                <td>{{ course.course_date_begin }}</td>
-                <td>{{ course.course_time_begin }}</td>
+                <td>{{ course.course_date_begin|date:'d.m.Y'  }}</td>
+                <td>{{ course.course_time_begin|date:'G:i' }}</td>
                 <td>{{ course.course_location }}</td>
                 <td>{{ course.course_tutor }}</td>
             </tr>

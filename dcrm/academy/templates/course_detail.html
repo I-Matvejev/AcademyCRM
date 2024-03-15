@@ -9,9 +9,9 @@
       </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <strong>Дата:  </strong>{{ course_detail.course_date_begin }} - {{ course_detail.course_date_end }} </li>
+                <strong>Дата:  </strong>{{ course_detail.course_date_begin|date:'d.m.Y' }} - {{ course_detail.course_date_end|date:'d.m.Y' }} </li>
             <li class="list-group-item">
-                <strong>Время:  </strong>{{ course_detail.course_time_begin }} - {{ course_detail.course_time_end }} </li>
+                <strong>Время:  </strong>{{ course_detail.course_time_begin|date:'G:i'  }} - {{ course_detail.course_time_end|date:'G:i'  }} </li>
             <li class="list-group-item">
                 <strong>Место:  </strong>{{ course_detail.course_location }} </li>
             <li class="list-group-item">
