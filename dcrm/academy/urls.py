@@ -9,4 +9,6 @@ urlpatterns = [
     path('course/<int:pk>', views.course_detail, name='course_detail'),
     path('update_course/<int:pk>', views.update_course, name='update_course'),
     path('delete_course/<int:pk>', views.delete_course, name='delete_course'),
+    # path('course_attendees/<int:pk>', views.course_attendees, name='course_attendees'),
+    path('course_attendees_all/<int:course_id>', views.course_attendees_all, name='course_attendees_all'),
 ]

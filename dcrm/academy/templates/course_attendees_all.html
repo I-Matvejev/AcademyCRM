@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="col-md-6 offset-md-3">
+    <h1> Слушатели: </h1>
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Фамилия</th>
+              <th scope="col">Имя</th>
+              <th scope="col">Отчество</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% if all_attendees %}
+            {% for attendee in all_attendees %}
+            <tr>
+                <td>{{ attendee.attendee_last_name }}</td>
+                <td>{{ attendee.attendee_first_name }}</td>
+                <td>{{ attendee.attendee_fathers_name }}</td>
+            </tr>
+            {% endfor %}
+          {% else %}
+          <h2>Слушатели пока не занесены в базу</h2>
+          {% endif %}
+          </tbody>
+        </table>
+</div>
+
+{% else %}
+
+<h2> Вы должны быть авторизованы для просмотра этой страницы! </h2>
+
+{% endif %}
+
+{% endblock %}

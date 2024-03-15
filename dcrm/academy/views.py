@@ -76,3 +76,8 @@ def update_course(request, pk):
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')
+
+
+def course_attendees_all(request, course_id):
+    all_attendees = Attendee.objects.filter(attendee_course_id=course_id)
+    return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees})

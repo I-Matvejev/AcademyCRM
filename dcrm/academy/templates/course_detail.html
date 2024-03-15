@@ -28,7 +28,7 @@
         <a class="btn btn-secondary " href="{% url 'update_course' course_detail.id %}" role="button">Изменить</a>
         <br/>
         <br/>
-        <a class="btn btn-primary btn-lg" href="{% url 'new_course' %}" role="button">Слушатели</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'course_attendees_all' course_detail.id %}" role="button">Слушатели</a>
     </div>
 </div>
 

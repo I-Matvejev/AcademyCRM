@@ -16,14 +16,14 @@ class Course(models.Model):
 
 
 class Attendee(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.DO_NOTHING, blank=False)
-    last_name = models.CharField(max_length=50, blank=False)
-    first_name = models.CharField(max_length=20, blank=False)
-    fathers_name = models.CharField(max_length=50)
-    email = models.CharField(max_length=100, blank=False)
-    phone = models.CharField(max_length=20, blank=False)
-    company = models.CharField(max_length=100)
-    city = models.CharField(max_length=50)
+    attendee_course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, blank=False)
+    attendee_last_name = models.CharField(max_length=50, blank=False)
+    attendee_first_name = models.CharField(max_length=20, blank=False)
+    attendee_fathers_name = models.CharField(max_length=50)
+    attendee_email = models.CharField(max_length=100, blank=False)
+    attendee_phone = models.CharField(max_length=20, blank=False)
+    attendee_company = models.CharField(max_length=100)
+    attendee_city = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.attendee_first_name} {self.attendee_last_name}"

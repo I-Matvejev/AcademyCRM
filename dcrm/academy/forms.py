@@ -15,3 +15,18 @@ class NewCourseForm(forms.ModelForm):
     class Meta:
         model = Course
         exclude = ("course",)
+
+
+class CourseAttendeesForm(forms.ModelForm):
+    attendee_course_id = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Название курса", "class": "form-control"}), label="")
+    attendee_last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Фамилия", "class": "form-control"}), label="")
+    attendee_first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Имя", "class": "form-control"}), label="")
+    attendee_fathers_name = forms.CharField(widget=forms.widgets.TextInput(attrs={"placeholder": "Отчество", "class": "form-control"}), label="")
+    attendee_email = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Электронная почта", "class": "form-control"}), label="")
+    attendee_phone = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Телефон", "class": "form-control"}), label="")
+    attendee_company = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Компания", "class": "form-control"}), label="")
+    attendee_city = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Город", "class": "form-control"}), label="")
+
+    class Meta:
+        model = Attendee
+        exclude = ("attendee",)
