@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.urls import reverse_lazy
 
 from .models import Course, Attendee
 from .forms import NewCourseForm
@@ -97,9 +96,10 @@ def attendee_detail(request, pk):
 def delete_attendee(request, pk):
     if request.user.is_authenticated:
         delete_it = Attendee.objects.get(id=pk)
+        course_id_number = delete_it.attendee_course_id.id
         delete_it.delete()
         messages.success(request, "Слушатель успешно удален!")
-        return redirect('all_courses')
+        return redirect('course_attendees_all', course_id_number)
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')
