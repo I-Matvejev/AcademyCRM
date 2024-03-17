@@ -18,7 +18,7 @@ class NewCourseForm(forms.ModelForm):
 
 
 class CourseAttendeesForm(forms.ModelForm):
-    attendee_course_id = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Название курса", "class": "form-control"}), label="")
+    attendee_course_id = forms.ModelChoiceField(queryset=Course.objects.all(), required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Название курса", "class": "form-control"}), label="")
     attendee_last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Фамилия", "class": "form-control"}), label="")
     attendee_first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder": "Имя", "class": "form-control"}), label="")
     attendee_fathers_name = forms.CharField(widget=forms.widgets.TextInput(attrs={"placeholder": "Отчество", "class": "form-control"}), label="")

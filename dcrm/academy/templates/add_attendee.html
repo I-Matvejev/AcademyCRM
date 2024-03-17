@@ -6,16 +6,17 @@
 <br/>
 <div class="col-md-6 offset-md-3">
 
-    <h1>Добавить курс</h1><br/>
+    <h1>Добавить слушателя</h1><br/>
 
-    <form method="POST" action="{% url 'new_course' %}">
+    <form method="POST" action="{% url 'add_attendee' %}">
         {% csrf_token %}
         {{ form.as_p}}
 
     <br/>
-        <button type="submit" class="btn btn-secondary">Добавить курс</button>
+        <button type="submit" class="btn btn-secondary">Добавить</button>
+        <br/><br/>
     </form>
-    <br/>
+
 </div>
 
 

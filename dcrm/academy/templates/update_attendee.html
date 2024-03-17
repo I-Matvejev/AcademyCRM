@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% if user.is_authenticated %}
 
 <br/>
 <div class="col-md-6 offset-md-3">
 
-    <h1>Добавить курс</h1><br/>
+    {% if user.is_authenticated %}
 
-    <form method="POST" action="{% url 'new_course' %}">
+    <h1>Обновить данные слушателя</h1><br/>
+
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p}}
 
     <br/>
-        <button type="submit" class="btn btn-secondary">Добавить курс</button>
+        <button type="submit" class="btn btn-secondary">Обновить</button>
     </form>
     <br/>
-</div>
 
+</div>
 
 {% else %}
 

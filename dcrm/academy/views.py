@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from .models import Course, Attendee
-from .forms import NewCourseForm
+from .forms import NewCourseForm, CourseAttendeesForm
 
 
 def home(request):
@@ -100,6 +100,34 @@ def delete_attendee(request, pk):
         delete_it.delete()
         messages.success(request, "Слушатель успешно удален!")
         return redirect('course_attendees_all', course_id_number)
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')
+
+
+def update_attendee(request, pk):
+    if request.user.is_authenticated:
+        current_attendee = Attendee.objects.get(id=pk)
+        form = CourseAttendeesForm(request.POST or None, instance=current_attendee)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Данные успешно изменены!")
+            return redirect('all_courses')
+        return render(request, 'update_attendee.html', {'form': form})
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')
+
+
+def add_attendee(request):
+    form = CourseAttendeesForm(request.POST or None)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if form.is_valid():
+                new_attendee = form.save()
+                messages.success(request, "Добавлен новый слушатель!")
+                return redirect('all_courses')
+        return render(request, 'add_attendee.html', {'form': form})
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')
