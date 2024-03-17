@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from .models import Course, Attendee
-from .forms import NewCourseForm, CourseAttendeesForm
+from .forms import NewCourseForm, CourseAttendeesForm, CourseAttendeesForm2
 
 
 def home(request):
@@ -108,11 +108,11 @@ def delete_attendee(request, pk):
 def update_attendee(request, pk):
     if request.user.is_authenticated:
         current_attendee = Attendee.objects.get(id=pk)
-        form = CourseAttendeesForm(request.POST or None, instance=current_attendee)
+        form = CourseAttendeesForm2(request.POST or None, instance=current_attendee)
         if form.is_valid():
             form.save()
             messages.success(request, "Данные успешно изменены!")
-            return redirect('all_courses')
+            return redirect('attendee_detail', current_attendee.id)
         return render(request, 'update_attendee.html', {'form': form})
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
