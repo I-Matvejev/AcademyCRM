@@ -8,7 +8,7 @@
 
     <h1>Добавить слушателя</h1><br/>
 
-    <form method="POST" action="{% url 'add_attendee' %}">
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p}}
 

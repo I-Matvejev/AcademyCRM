@@ -80,7 +80,7 @@ def update_course(request, pk):
 def course_attendees_all(request, course_id):
     all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name')
     current_course = Course.objects.get(pk=course_id)
-    return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_name': current_course.course_name})
+    return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id})
 
 
 def attendee_detail(request, pk):
@@ -118,10 +118,8 @@ def update_attendee(request, pk):
         return redirect('home')
 
 
-def add_attendee(request):
-    url_course_id_full = request.META.get('HTTP_REFERER')
-    url_course_id = url_course_id_full[-1]
-    form = CourseAttendeesForm(request.POST or None, initial={"attendee_course_id": url_course_id})
+def add_attendee(request, course_id):
+    form = CourseAttendeesForm(request.POST or None, initial={"attendee_course_id": course_id})
     if request.user.is_authenticated:
         if request.method == "POST":
             if form.is_valid():
