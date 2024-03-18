@@ -16,7 +16,7 @@ class Course(models.Model):
 
 
 class Attendee(models.Model):
-    attendee_course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING, blank=False)
+    attendee_course_id = models.ForeignKey(Course, on_delete=models.CASCADE, blank=False)
     attendee_last_name = models.CharField(max_length=50, blank=False)
     attendee_first_name = models.CharField(max_length=20, blank=False)
     attendee_fathers_name = models.CharField(max_length=50)

@@ -22,7 +22,6 @@ def home(request):
 
 def logout_user(request):
     logout(request)
-    # messages.success(request, "Вы успешно вышли.")
     return redirect('home')
 
 
@@ -120,13 +119,15 @@ def update_attendee(request, pk):
 
 
 def add_attendee(request):
-    form = CourseAttendeesForm(request.POST or None)
+    url_course_id_full = request.META.get('HTTP_REFERER')
+    url_course_id = url_course_id_full[-1]
+    form = CourseAttendeesForm(request.POST or None, initial={"attendee_course_id": url_course_id})
     if request.user.is_authenticated:
         if request.method == "POST":
             if form.is_valid():
                 new_attendee = form.save()
                 messages.success(request, "Добавлен новый слушатель!")
-                return redirect('all_courses')
+                return redirect('course_attendees_all', new_attendee.attendee_course_id.id)
         return render(request, 'add_attendee.html', {'form': form})
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
