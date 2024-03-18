@@ -80,7 +80,8 @@ def update_course(request, pk):
 
 def course_attendees_all(request, course_id):
     all_attendees = Attendee.objects.filter(attendee_course_id=course_id)
-    return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees})
+    current_course = Course.objects.get(pk=course_id)
+    return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_name': current_course.course_name})
 
 
 def attendee_detail(request, pk):
