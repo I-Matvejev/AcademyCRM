@@ -13,7 +13,6 @@ def home(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            # messages.success(request, "Вы успешно авторизовались!")
             return redirect('home')
         else:
             messages.success(request, "Возникла проблема, попробуйте еще раз...")
@@ -79,7 +78,7 @@ def update_course(request, pk):
 
 
 def course_attendees_all(request, course_id):
-    all_attendees = Attendee.objects.filter(attendee_course_id=course_id)
+    all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name')
     current_course = Course.objects.get(pk=course_id)
     return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_name': current_course.course_name})
 

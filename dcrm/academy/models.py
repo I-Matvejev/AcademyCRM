@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
-letters_only = RegexValidator(r'^[a-zA-Zа-яА-Я]*$')
+letters_only = RegexValidator(r'^[A-ZА-Я]+[a-zа-я]+(-[A-ZА-Я]+[a-zа-я]+)?')
 numbers_special_characters = RegexValidator(r'^[+][7]-[0-9]{3}-[0-9]{3}-[0-9]{4}')
 
 
