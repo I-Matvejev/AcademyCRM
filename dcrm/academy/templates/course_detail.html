@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+
 <div class="col-md-6 offset-md-4">
 {% block content %}
+
 <br/>
 
     <div class="container text-center">
@@ -23,7 +25,8 @@
         </div>
         <a class="btn btn-secondary " href="{% url 'all_courses' %}" role="button">Назад</a>
 
-        <a class="btn btn-danger " href="{% url 'delete_course' course_detail.id %}" role="button">Удалить</a>
+        <a class="btn btn-danger " href="{% url 'delete_course' course_detail.id %}" role="button"
+           onclick="return confirm('Вы уверены, что хотите удалить курс и всех ассоциированных с ним слушателей?')">Удалить</a>
 
         <a class="btn btn-secondary " href="{% url 'update_course' course_detail.id %}" role="button">Изменить</a>
         <br/>

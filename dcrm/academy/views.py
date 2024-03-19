@@ -39,7 +39,7 @@ def new_course(request):
 
 
 def all_courses(request):
-    courses = Course.objects.all()
+    courses = Course.objects.all().order_by('-id')
     return render(request, 'all_courses.html', {'courses': courses})
 
 
@@ -80,7 +80,7 @@ def update_course(request, pk):
 def course_attendees_all(request, course_id):
     all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name')
     current_course = Course.objects.get(pk=course_id)
-    return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id})
+    return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id, 'current_course': current_course})
 
 
 def attendee_detail(request, pk):
