@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
-<div class="col-md-6 offset-md-4">
+
 {% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="col-md-6 offset-md-3">
 <br/>
 
     <div class="container text-center">
@@ -30,6 +34,12 @@
         <br/>
     </div>
 </div>
+
+{% else %}
+
+<h2> Вы должны быть авторизованы для просмотра этой страницы! </h2>
+
+{% endif %}
 
 
 {% endblock %}

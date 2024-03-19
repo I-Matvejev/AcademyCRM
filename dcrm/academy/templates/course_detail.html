@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 <div class="col-md-6 offset-md-4">
+
 {% block content %}
+
+{% if user.is_authenticated %}
 
 <br/>
 
@@ -34,6 +37,12 @@
         <a class="btn btn-primary btn-lg" href="{% url 'course_attendees_all' course_detail.id %}" role="button">Слушатели</a>
     </div>
 </div>
+
+{% else %}
+
+<h2> Вы должны быть авторизованы для просмотра этой страницы! </h2>
+
+{% endif %}
 
 
 {% endblock %}
