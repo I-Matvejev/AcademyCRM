@@ -1,6 +1,9 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.db.models import Count
 
 from .models import Course, Attendee
 from .forms import NewCourseForm, CourseAttendeesForm, CourseAttendeesForm2
@@ -16,7 +19,8 @@ def home(request):
             return redirect('home')
         else:
             messages.success(request, "Возникла проблема, попробуйте еще раз...")
-    return render(request, 'home.html', {})
+    upcoming_courses = Course.objects.filter(course_date_begin__gte=datetime.date.today()).order_by('course_date_begin')[:3].annotate(number_of_attendees=Count('attendee'))
+    return render(request, 'home.html', {'upcoming_courses': upcoming_courses})
 
 
 def logout_user(request):

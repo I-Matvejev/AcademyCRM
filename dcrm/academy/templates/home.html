@@ -12,29 +12,19 @@
         </div>
         <div class="col">
             <h2> Ближайшие курсы: </h2> <br/>
+            {% if upcoming_courses %}
+                {% for course in upcoming_courses %}
                 <div class="list-group">
-                      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                      <a href="{% url 'course_detail' course.id %}" class="list-group-item list-group-item-action" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
+                          <h5 class="mb-1">{{ course.course_name }}</h5>
                         </div>
-                        <p class="mb-1">Some placeholder content in a paragraph.</p>
-                        <small> 2 д. до начала курса </small>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
-                        </div>
-                        <p class="mb-1">Some placeholder content in a paragraph.</p>
-                        <small class="text-body-secondary"> 3 д. до начала курса </small>
-                      </a>
-                      <a href="#" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">List group item heading</h5>
-                        </div>
-                        <p class="mb-1">Some placeholder content in a paragraph.</p>
-                        <small class="text-body-secondary"> 15 д. до начала курса </small>
-                      </a>
-                    </div>
+                        <p class="mb-1">{{ course.course_date_begin|date:'d.m.Y' }}</p>
+                        <p class="mb-1">Слушателей: {{ course.number_of_attendees }}</p>
+                      </a><br/>
+                </div>
+                {% endfor %}
+            {% endif %}
         </div>
         <div class="col">
             <a class="btn btn-primary btn-lg" href="{% url 'new_course' %}" role="button">Новый курс</a>
