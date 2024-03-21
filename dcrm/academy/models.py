@@ -3,7 +3,7 @@ from django.core.validators import RegexValidator
 
 letters_only = RegexValidator(r'^[A-ZА-Я][a-zа-я]+$')
 letters_and_dash = RegexValidator(r'^[A-ZА-Я][a-zа-я]+((-[A-ZА-Я][a-zа-я]+)?)')
-numbers_special_characters = RegexValidator(r'^[+][7]-[0-9]{3}-[0-9]{3}-[0-9]{4}')
+
 
 
 class Course(models.Model):
@@ -26,7 +26,7 @@ class Attendee(models.Model):
     attendee_first_name = models.CharField(max_length=20, blank=False, validators=[letters_only])
     attendee_fathers_name = models.CharField(max_length=50, validators=[letters_only])
     attendee_email = models.EmailField(max_length=100, blank=False)
-    attendee_phone = models.CharField(max_length=20, blank=False, validators=[numbers_special_characters])
+    attendee_phone = models.CharField(max_length=20, blank=False)
     attendee_company = models.CharField(max_length=100)
     attendee_city = models.CharField(max_length=50)
 
