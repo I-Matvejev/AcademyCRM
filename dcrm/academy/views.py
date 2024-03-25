@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.db.models import Count
 
 from .models import Course, Attendee
-from .forms import NewCourseForm, CourseAttendeesForm, CourseAttendeesForm2
+from .forms import NewCourseForm, CourseAttendeesForm
 
 
 def home(request):
@@ -111,7 +111,7 @@ def delete_attendee(request, pk):
 def update_attendee(request, pk):
     if request.user.is_authenticated:
         current_attendee = Attendee.objects.get(id=pk)
-        form = CourseAttendeesForm2(request.POST or None, instance=current_attendee)
+        form = CourseAttendeesForm(request.POST or None, instance=current_attendee)
         if form.is_valid():
             form.save()
             messages.success(request, "Данные успешно изменены!")
