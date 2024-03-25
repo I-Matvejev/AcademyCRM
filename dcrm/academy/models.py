@@ -19,10 +19,14 @@ class Course(models.Model):
 
 
 class Attendee(models.Model):
+
+    GENDER_CHOICES = [('Male', 'M'), ('Female', 'F')]
+
     attendee_course_id = models.ForeignKey(Course, on_delete=models.CASCADE, blank=False)
     attendee_last_name = models.CharField(max_length=50, blank=False, validators=[name_validator])
     attendee_first_name = models.CharField(max_length=20, blank=False, validators=[name_validator])
     attendee_fathers_name = models.CharField(max_length=50, validators=[name_validator])
+    attendee_gender = models.CharField(blank=False, choices=GENDER_CHOICES, default='Male', verbose_name=('Пол'))
     attendee_email = models.EmailField(max_length=100, blank=False)
     attendee_phone = models.CharField(max_length=20, blank=False)
     attendee_company = models.CharField(max_length=100)
