@@ -8,10 +8,6 @@
     <div class="container text-center">
       <div class="row align-items-center">
         <div class="col">
-            <a class="btn btn-primary btn-lg" href="{% url 'all_courses' %}" role="button">Все курсы</a> <br/>
-            <a class="btn btn-primary btn-lg" href="{% url 'attendees' %}" role="button">Все слушатели</a>
-        </div>
-        <div class="col">
             <h2> Ближайшие курсы: </h2> <br/>
             {% if upcoming_courses %}
                 {% for course in upcoming_courses %}
@@ -29,7 +25,13 @@
             {% endif %}
         </div>
         <div class="col">
-            <a class="btn btn-primary btn-lg" href="{% url 'new_course' %}" role="button">Новый курс</a>
+          <a class="btn btn-primary btn-lg" href="{% url 'all_courses' %}" role="button">Все курсы</a>
+        </div>
+        <div class="col">
+          <a class="btn btn-primary btn-lg" href="{% url 'attendees' %}" role="button">Все слушатели</a>
+        </div>
+        <div class="col">
+          <a class="btn btn-primary btn-lg" href="{% url 'new_course' %}" role="button">Новый курс</a>
         </div>
       </div>
     </div>

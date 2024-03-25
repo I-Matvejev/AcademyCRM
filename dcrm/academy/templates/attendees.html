@@ -41,7 +41,7 @@
                 <td>{{ attendee.attendee_company }}</td>
                 <td>{{ attendee.attendee_position }}</td>
                 <td>{{ attendee.attendee_city }}</td>
-                <td>{{ attendee.attendee_course_id.course_name }}</td>
+                <td><a href="{% url 'course_detail' attendee.attendee_course_id.id %}">{{ attendee.attendee_course_id.course_name }}</a></td>
             </tr>
             {% endfor %}
           {% else %}
