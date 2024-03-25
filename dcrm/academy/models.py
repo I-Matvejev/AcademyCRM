@@ -1,9 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
-letters_only = RegexValidator(r'^[A-ZА-Я][a-zа-я]+$')
-letters_and_dash = RegexValidator(r'^[A-ZА-Я][a-zа-я]+((-[A-ZА-Я][a-zа-я]+)?)')
-
+name_validator = RegexValidator(r'^([A-ZА-Я][а-я-,a-z. ]+[ ]*)+$')
 
 
 class Course(models.Model):
@@ -11,7 +9,7 @@ class Course(models.Model):
     course_date_begin = models.DateField(blank=False)
     course_time_begin = models.TimeField(blank=False)
     course_location = models.CharField(max_length=100)
-    course_tutor = models.CharField(max_length=100, validators=[letters_and_dash])
+    course_tutor = models.CharField(max_length=100, validators=[name_validator])
     course_date_end = models.DateField()
     course_time_end = models.TimeField()
     course_standard = models.CharField(max_length=100)
@@ -22,9 +20,9 @@ class Course(models.Model):
 
 class Attendee(models.Model):
     attendee_course_id = models.ForeignKey(Course, on_delete=models.CASCADE, blank=False)
-    attendee_last_name = models.CharField(max_length=50, blank=False, validators=[letters_and_dash])
-    attendee_first_name = models.CharField(max_length=20, blank=False, validators=[letters_only])
-    attendee_fathers_name = models.CharField(max_length=50, validators=[letters_only])
+    attendee_last_name = models.CharField(max_length=50, blank=False, validators=[name_validator])
+    attendee_first_name = models.CharField(max_length=20, blank=False, validators=[name_validator])
+    attendee_fathers_name = models.CharField(max_length=50, validators=[name_validator])
     attendee_email = models.EmailField(max_length=100, blank=False)
     attendee_phone = models.CharField(max_length=20, blank=False)
     attendee_company = models.CharField(max_length=100)
