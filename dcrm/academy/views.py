@@ -82,7 +82,7 @@ def update_course(request, pk):
 
 
 def course_attendees_all(request, course_id):
-    all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name')
+    all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name_rus')
     current_course = Course.objects.get(pk=course_id)
     return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id, 'current_course': current_course})
 
@@ -134,3 +134,8 @@ def add_attendee(request, course_id):
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')
+
+
+def attendees(request):
+    attendees_list = Attendee.objects.all().order_by('attendee_last_name_rus')
+    return render(request, 'attendees.html', {'attendees_list': attendees_list})

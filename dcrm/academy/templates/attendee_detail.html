@@ -10,17 +10,19 @@
     <div class="container text-center">
         <div class="card mb-3 mx-auto" style="width: 18rem;">
           <div class="card-header">
-              <strong>{{ attendee_detail.attendee_last_name }} {{ attendee_detail.attendee_first_name }}</strong>
+              <strong>{{ attendee_detail.attendee_last_name_rus }} {{ attendee_detail.attendee_first_name_rus }}</strong>
           </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <strong>Отчество:  </strong>{{ attendee_detail.attendee_fathers_name }} </li>
+                    <strong>Отчество:  </strong>{{ attendee_detail.attendee_fathers_name_rus }} </li>
                 <li class="list-group-item">
                     <strong>Телефон:  </strong>{{ attendee_detail.attendee_phone  }} </li>
                 <li class="list-group-item">
                     <strong>Эл. почта:  </strong>{{ attendee_detail.attendee_email }} </li>
                 <li class="list-group-item">
                     <strong>Компания:  </strong>{{ attendee_detail.attendee_company }} </li>
+                <li class="list-group-item">
+                    <strong>Должность:  </strong>{{ attendee_detail.attendee_position }} </li>
                 <li class="list-group-item">
                     <strong>Город:  </strong>{{ attendee_detail.attendee_city }} </li>
               </ul>
