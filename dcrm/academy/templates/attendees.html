@@ -11,17 +11,12 @@
           <thead class="table-dark">
             <tr>
               <th scope="col">Фамилия</th>
-              <th scope="col">Имя</th>
-              <th scope="col">Отчество</th>
-              <th scope="col">Фамилия (англ)</th>
-              <th scope="col">Имя (англ)</th>
-              <th scope="col">Отчество (англ)</th>
-              <th scope="col">Пол</th>
+              <th scope="col">Имя Отчество</th>
+              <th scope="col"> Имя Фамилия (англ)</th>
               <th scope="col">Эл. почта</th>
               <th scope="col">Телефон</th>
               <th scope="col">Компания</th>
               <th scope="col">Должность</th>
-              <th scope="col">Город</th>
               <th scope="col">Курс</th>
             </tr>
           </thead>
@@ -30,17 +25,12 @@
             {% for attendee in attendees_list %}
             <tr>
                 <td><a href="{% url 'attendee_detail' attendee.id %}">{{ attendee.attendee_last_name_rus }}</a></td>
-                <td>{{ attendee.attendee_first_name_rus }}</td>
-                <td>{{ attendee.attendee_fathers_name_rus }}</td>
-                <td>{{ attendee.attendee_last_name_eng }}</td>
-                <td>{{ attendee.attendee_first_name_eng }}</td>
-                <td>{{ attendee.attendee_fathers_name_eng }}</td>
-                <td>{{ attendee.attendee_gender }}</td>
+                <td>{{ attendee.attendee_first_name_rus }} {{ attendee.attendee_fathers_name_rus }}</td>
+                <td>{{ attendee.attendee_first_name_eng }} {{ attendee.attendee_last_name_eng }}</td>
                 <td>{{ attendee.attendee_email }}</td>
                 <td>{{ attendee.attendee_phone }}</td>
                 <td>{{ attendee.attendee_company }}</td>
                 <td>{{ attendee.attendee_position }}</td>
-                <td>{{ attendee.attendee_city }}</td>
                 <td><a href="{% url 'course_detail' attendee.attendee_course_id.id %}">{{ attendee.attendee_course_id.course_name }}</a></td>
             </tr>
             {% endfor %}

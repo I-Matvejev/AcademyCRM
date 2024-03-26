@@ -37,7 +37,7 @@ class Attendee(models.Model):
     attendee_phone = models.CharField(max_length=20)
     attendee_company = models.CharField(max_length=100)
     attendee_position = models.CharField(max_length=50)
-    attendee_contract_number = models.CharField(max_length=25)
+    attendee_contract_number = models.CharField(blank=True, max_length=25)
     attendee_contract_status = models.CharField(choices=CONTRACT_CHOICES, default='Не направлен', verbose_name=('Статус договора'))
     attendee_invoice_status = models.CharField(choices=INVOICE_CHOICES, default='Не оплачен', verbose_name=('Статус счета'))
     attendee_course_price = models.CharField(max_length=25)

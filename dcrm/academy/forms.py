@@ -28,7 +28,7 @@ class CourseAttendeesForm(forms.ModelForm):
     attendee_phone = forms.CharField(widget=forms.widgets.TextInput(attrs={"placeholder": "Телефон", "class": "form-control"}), label="")
     attendee_company = forms.CharField(widget=forms.widgets.TextInput(attrs={"placeholder": "Компания", "class": "form-control"}), label="")
     attendee_position = forms.CharField(widget=forms.widgets.TextInput(attrs={"placeholder": "Должность", "class": "form-control"}), label="")
-    attendee_contract_number = forms.CharField(max_length=25, widget=forms.widgets.TextInput(attrs={"placeholder": "Номер договора", "class": "form-control"}), label="")
+    attendee_contract_number = forms.CharField(required=False, max_length=25, widget=forms.widgets.TextInput(attrs={"placeholder": "Номер договора", "class": "form-control"}), label="")
     attendee_contract_status = forms.Select(attrs={"placeholder": "Статус договора", "class": "form-control"})
     attendee_invoice_status = forms.Select(attrs={"placeholder": "Статус счета", "class": "form-control"})
     attendee_course_price = forms.CharField(max_length=25, widget=forms.widgets.TextInput(attrs={"placeholder": "Стоимость", "class": "form-control"}), label="")

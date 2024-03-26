@@ -19,7 +19,7 @@ def home(request):
             return redirect('home')
         else:
             messages.success(request, "Возникла проблема, попробуйте еще раз...")
-    upcoming_courses = Course.objects.filter(course_date_begin__gte=datetime.date.today()).order_by('course_date_begin')[:3].annotate(number_of_attendees=Count('attendee'))
+    upcoming_courses = Course.objects.filter(course_date_begin__gte=datetime.date.today()).order_by('course_date_begin')[:5].annotate(number_of_attendees=Count('attendee'))
     return render(request, 'home.html', {'upcoming_courses': upcoming_courses})
 
 
