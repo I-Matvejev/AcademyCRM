@@ -18,7 +18,7 @@
                         </div>
                         <p class="mb-1">Начало: {{ course.course_date_begin|date:'d.m.Y' }}</p>
                         <p class="mb-1">Место: {{ course.course_location }}</p>
-                        <p class="mb-1">Слушатели: {{ course.number_of_attendees }}</p>
+                        <p class="mb-1">Слушатели: {{ course.number_of_attendees_invoice_paid }}/{{ course.number_of_attendees }}</p>
                       </a><br/>
                 </div>
                 {% endfor %}

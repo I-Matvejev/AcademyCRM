@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.db.models import Count
+from django.db.models import Count, Case, When, Q
 
 from .models import Course, Attendee
 from .forms import NewCourseForm, CourseAttendeesForm
@@ -19,7 +19,7 @@ def home(request):
             return redirect('home')
         else:
             messages.success(request, "Возникла проблема, попробуйте еще раз...")
-    upcoming_courses = Course.objects.filter(course_date_begin__gte=datetime.date.today()).order_by('course_date_begin')[:5].annotate(number_of_attendees=Count('attendee'))
+    upcoming_courses = Course.objects.filter(course_date_begin__gt=datetime.date.today()).order_by('course_date_begin')[:5].annotate(number_of_attendees=Count('attendee')).annotate(number_of_attendees_invoice_paid=Count(Case(When(Q(attendee__attendee_invoice_status='Оплачен') | Q(attendee__attendee_invoice_status='Постоплата'), then=1))))
     return render(request, 'home.html', {'upcoming_courses': upcoming_courses})
 
 
@@ -43,7 +43,7 @@ def new_course(request):
 
 
 def all_courses(request):
-    courses = Course.objects.all().order_by('-id')
+    courses = Course.objects.all().order_by('-id').annotate(number_of_attendees=Count('attendee')).annotate(number_of_attendees_invoice_paid=Count(Case(When(Q(attendee__attendee_invoice_status='Оплачен') | Q(attendee__attendee_invoice_status='Постоплата'), then=1))))
     return render(request, 'all_courses.html', {'courses': courses})
 
 
