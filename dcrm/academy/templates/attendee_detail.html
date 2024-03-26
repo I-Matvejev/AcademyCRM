@@ -23,8 +23,6 @@
                     <strong>Компания:  </strong>{{ attendee_detail.attendee_company }} </li>
                 <li class="list-group-item">
                     <strong>Должность:  </strong>{{ attendee_detail.attendee_position }} </li>
-                <li class="list-group-item">
-                    <strong>Город:  </strong>{{ attendee_detail.attendee_city }} </li>
               </ul>
         </div>
         <a class="btn btn-secondary " href="{% url 'course_attendees_all' attendee_detail.attendee_course_id.id %}" role="button">Назад</a>
