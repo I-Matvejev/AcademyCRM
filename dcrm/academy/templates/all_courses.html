@@ -10,7 +10,8 @@
             <tr>
               <th scope="col">Название</th>
               <th scope="col">Дата начала</th>
-              <th scope="col">Время начала</th>
+              <th scope="col">Дата окончания</th>
+              <th scope="col">Слушатели</th>
               <th scope="col">Место</th>
               <th scope="col">Преподаватель</th>
               <th scope="col">Статус</th>
@@ -22,7 +23,8 @@
             <tr>
                 <td><a href="{% url 'course_detail' course.id %}">{{ course.course_name | truncatechars:30 }}</a></td>
                 <td>{{ course.course_date_begin|date:'d.m.Y' }}</td>
-                <td>{{ course.course_time_begin|date:'G:i' }}</td>
+                <td>{{ course.course_date_end|date:'d.m.Y'  }}</td>
+                <td>INSERT VALUES</td>
                 <td>{{ course.course_location }}</td>
                 <td>{{ course.course_tutor }}</td>
                 <td>{{ course.course_status }}</td>

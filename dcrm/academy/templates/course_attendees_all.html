@@ -20,9 +20,9 @@
           {% if all_attendees %}
             {% for attendee in all_attendees %}
             <tr>
-                <td><a href="{% url 'attendee_detail' attendee.id %}">{{ attendee.attendee_last_name }}</a></td>
-                <td>{{ attendee.attendee_first_name }}</td>
-                <td>{{ attendee.attendee_fathers_name }}</td>
+                <td><a href="{% url 'attendee_detail' attendee.id %}">{{ attendee.attendee_last_name_rus }}</a></td>
+                <td>{{ attendee.attendee_first_name_rus }}</td>
+                <td>{{ attendee.attendee_fathers_name_rus }}</td>
             </tr>
             {% endfor %}
           {% else %}
