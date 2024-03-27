@@ -47,13 +47,13 @@ def all_courses(request):
     return render(request, 'all_courses.html', {'courses': courses})
 
 
-def course_detail(request, pk):
-    if request.user.is_authenticated:
-        course_detail = Course.objects.get(id=pk)
-        return render(request, 'course_detail.html', {'course_detail': course_detail})
-    else:
-        messages.success(request, "Вы не авторизованы для просмотра этой страницы!")
-        return redirect('home')
+# def course_detail(request, pk):
+#     if request.user.is_authenticated:
+#         course_detail = Course.objects.get(id=pk)
+#         return render(request, 'course_detail.html', {'course_detail': course_detail})
+#     else:
+#         messages.success(request, "Вы не авторизованы для просмотра этой страницы!")
+#         return redirect('home')
 
 
 def delete_course(request, pk):
@@ -87,13 +87,13 @@ def course_attendees_all(request, course_id):
     return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id, 'current_course': current_course})
 
 
-def attendee_detail(request, pk):
-    if request.user.is_authenticated:
-        attendee_detail = Attendee.objects.get(id=pk)
-        return render(request, 'attendee_detail.html', {'attendee_detail': attendee_detail})
-    else:
-        messages.success(request, "Вы не авторизованы для просмотра этой страницы!")
-        return redirect('home')
+# def attendee_detail(request, pk):
+#     if request.user.is_authenticated:
+#         attendee_detail = Attendee.objects.get(id=pk)
+#         return render(request, 'attendee_detail.html', {'attendee_detail': attendee_detail})
+#     else:
+#         messages.success(request, "Вы не авторизованы для просмотра этой страницы!")
+#         return redirect('home')
 
 
 def delete_attendee(request, pk):
