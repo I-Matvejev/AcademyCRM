@@ -75,7 +75,7 @@ def update_course(request, pk):
             form.save()
             messages.success(request, "Данные успешно изменены!")
             return redirect('all_courses')
-        return render(request, 'update_course.html', {'form': form})
+        return render(request, 'update_course.html', {'form': form, 'current_course': current_course})
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')
@@ -116,7 +116,7 @@ def update_attendee(request, pk):
             form.save()
             messages.success(request, "Данные успешно изменены!")
             return redirect('attendee_detail', current_attendee.id)
-        return render(request, 'update_attendee.html', {'form': form})
+        return render(request, 'update_attendee.html', {'form': form, 'current_attendee': current_attendee})
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')

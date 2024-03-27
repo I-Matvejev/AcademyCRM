@@ -32,7 +32,7 @@
           {% if all_attendees %}
             {% for attendee in all_attendees %}
             <tr>
-                <td><a href="{% url 'attendee_detail' attendee.id %}">{{ attendee.attendee_last_name_rus }}</a></td>
+                <td><a href="{% url 'update_attendee' attendee.id %}">{{ attendee.attendee_last_name_rus }}</a></td>
                 <td>{{ attendee.attendee_first_name_rus }} {{ attendee.attendee_fathers_name_rus }}</td>
                 <td>{{ attendee.attendee_first_name_eng }} {{ attendee.attendee_last_name_eng }}</td>
                 <td>{{ attendee.attendee_email }}</td>
@@ -53,9 +53,10 @@
           <p>Слушатели пока не занесены в базу</p>
           {% endif %}
           </tbody>
-        </table>
-        <a class="btn btn-primary btn-lg" href="{% url 'add_attendee' course_id %}" role="button">Добавить слушателя</a>
+        </table> <br/>
+        <a class="btn btn-primary btn-lg" href="{% url 'add_attendee' course_id %}" role="button">Добавить слушателя</a><br/>
     <br/>
+        <a class="btn btn-primary btn-lg" href="{% url 'update_course' course_id %}" role="button">Изменить данные курса</a>
 
 </div>
 

@@ -24,14 +24,14 @@
           {% if attendees_list %}
             {% for attendee in attendees_list %}
             <tr>
-                <td><a href="{% url 'attendee_detail' attendee.id %}">{{ attendee.attendee_last_name_rus }}</a></td>
+                <td><a href="{% url 'update_attendee' attendee.id %}">{{ attendee.attendee_last_name_rus }}</a></td>
                 <td>{{ attendee.attendee_first_name_rus }} {{ attendee.attendee_fathers_name_rus }}</td>
                 <td>{{ attendee.attendee_first_name_eng }} {{ attendee.attendee_last_name_eng }}</td>
                 <td>{{ attendee.attendee_email }}</td>
                 <td>{{ attendee.attendee_phone }}</td>
                 <td>{{ attendee.attendee_company }}</td>
                 <td>{{ attendee.attendee_position }}</td>
-                <td><a href="{% url 'course_detail' attendee.attendee_course_id.id %}">{{ attendee.attendee_course_id.course_name }}</a></td>
+                <td><a href="{% url 'course_attendees_all' attendee.attendee_course_id.id %}">{{ attendee.attendee_course_id.course_name }}</a></td>
             </tr>
             {% endfor %}
           {% else %}
