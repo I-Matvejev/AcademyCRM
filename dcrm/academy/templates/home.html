@@ -36,20 +36,24 @@
     </div>
 
     {% else %}
-        <h1>Авторизуйтесь для входа:</h1>
-        <br/>
-        <form method="POST" action="{% url 'home' %}">
-            {% csrf_token %}
-              <div class="mb-3">
-                <input type="text" class="form-control" name="username" placeholder="Имя пользователя" required>
-              </div>
-                <br/>
-              <div class="mb-3">
-                <input type="password" class="form-control" name="password" placeholder="Пароль" required>
-              </div>
-                <br/>
-              <button type="submit" class="btn btn-secondary">Войти</button>
-        </form>
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-2 col-sm-4">
+            <h1>Авторизуйтесь для входа:</h1>
+            <br/>
+            <form method="POST" action="{% url 'home' %}">
+                {% csrf_token %}
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="Имя пользователя" required>
+                  </div>
+                    <br/>
+                  <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Пароль" required>
+                  </div>
+                    <br/>
+                  <button type="submit" class="btn btn-secondary">Войти</button>
+            </form>
+            </div>
+        </div>
     {% endif %}
 </div>
 

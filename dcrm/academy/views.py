@@ -124,13 +124,14 @@ def update_attendee(request, pk):
 
 def add_attendee(request, course_id):
     form = CourseAttendeesForm(request.POST or None, initial={"attendee_course_id": course_id})
+    all_registered_attendees = Attendee.objects.all()
     if request.user.is_authenticated:
         if request.method == "POST":
             if form.is_valid():
                 new_attendee = form.save()
                 messages.success(request, "Добавлен новый слушатель!")
                 return redirect('course_attendees_all', new_attendee.attendee_course_id.id)
-        return render(request, 'add_attendee.html', {'form': form})
+        return render(request, 'add_attendee.html', {'form': form, 'all_registered_attendees': all_registered_attendees})
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')
