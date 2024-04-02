@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
-from django.urls import reverse, resolve
-from ..views import home
+from django.urls import reverse
 from ..models import Course, Attendee
 
 User = get_user_model()
@@ -12,7 +11,7 @@ class AuthorizedUserUrlsTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         course = Course.objects.create(
-            course_name='Test course',
+            course_name='TestCourse',
             course_date_begin='2024-04-20',
             course_time_begin='08:00',
             course_location='TestLocation',
