@@ -43,9 +43,12 @@ def new_course(request):
 
 
 def all_courses(request):
-    courses = Course.objects.all().order_by('-id').annotate(number_of_attendees=Count('attendee')).annotate(number_of_attendees_invoice_paid=Count(Case(When(Q(attendee__attendee_invoice_status='Оплачен') | Q(attendee__attendee_invoice_status='Постоплата'), then=1))))
-    return render(request, 'all_courses.html', {'courses': courses})
-
+    if request.user.is_authenticated:
+        courses = Course.objects.all().order_by('-id').annotate(number_of_attendees=Count('attendee')).annotate(number_of_attendees_invoice_paid=Count(Case(When(Q(attendee__attendee_invoice_status='Оплачен') | Q(attendee__attendee_invoice_status='Постоплата'), then=1))))
+        return render(request, 'all_courses.html', {'courses': courses})
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')
 
 # def course_detail(request, pk):
 #     if request.user.is_authenticated:
@@ -82,10 +85,13 @@ def update_course(request, pk):
 
 
 def course_attendees_all(request, course_id):
-    all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name_rus')
-    current_course = Course.objects.get(pk=course_id)
-    return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id, 'current_course': current_course})
-
+    if request.user.is_authenticated:
+        all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name_rus')
+        current_course = Course.objects.get(pk=course_id)
+        return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id, 'current_course': current_course})
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')
 
 # def attendee_detail(request, pk):
 #     if request.user.is_authenticated:
@@ -138,5 +144,9 @@ def add_attendee(request, course_id):
 
 
 def attendees(request):
-    attendees_list = Attendee.objects.all().order_by('attendee_last_name_rus')
-    return render(request, 'attendees.html', {'attendees_list': attendees_list})
+    if request.user.is_authenticated:
+        attendees_list = Attendee.objects.all().order_by('attendee_last_name_rus')
+        return render(request, 'attendees.html', {'attendees_list': attendees_list})
+    else:
+        messages.success(request, "Вы не авторизованы для этого действия!")
+        return redirect('home')
