@@ -92,6 +92,10 @@ class AuthorizedUserUrlsTest(TestCase):
         response = self.guest_client.get(reverse('course_attendees_all', kwargs={'course_id': 1}))
         self.assertRedirects(response, reverse('home'))
 
+    def test_logout_redirect(self):
+        response = self.authorized_client.get(reverse('logout'))
+        self.assertRedirects(response, reverse('home'))
+
         # Attendee urls
 
     def test_attendees_url_exists_at_desired_location(self):
@@ -165,14 +169,10 @@ class AuthorizedUserUrlsTest(TestCase):
 
     # Testing __str__
 
-    def test_course_is_created(self):
-        course = Course.objects.filter(course_name='TestCourse')
-        self.assertTrue(course.exists())
-        for a_course in course:
-            self.assertEqual(str(a_course), f"{a_course.course_name} {a_course.course_date_begin}")
-
     def test_attendee_is_created(self):
-        attendee = Attendee.objects.filter(attendee_last_name_rus='ТестФамилия')
-        self.assertTrue(attendee.exists())
-        for a_attendee in attendee:
-            self.assertEqual(str(a_attendee), f"{a_attendee.attendee_first_name_rus} {a_attendee.attendee_last_name_rus}")
+        attendee = Attendee.objects.get(attendee_last_name_rus='ТестФамилия')
+        self.assertEqual(str(attendee), f"{attendee.attendee_first_name_rus} {attendee.attendee_last_name_rus}")
+
+    def test_course_is_created(self):
+        course = Course.objects.get(course_name='TestCourse')
+        self.assertEqual(str(course), f"{course.course_name} {course.course_date_begin}")
