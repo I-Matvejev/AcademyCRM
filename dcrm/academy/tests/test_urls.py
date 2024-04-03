@@ -162,3 +162,17 @@ class AuthorizedUserUrlsTest(TestCase):
         url = reverse('add_attendee', kwargs={'course_id': 1})
         response = self.authorized_client.get(url)
         self.assertTemplateUsed(response, 'add_attendee.html')
+
+    # Testing __str__
+
+    def test_course_is_created(self):
+        course = Course.objects.filter(course_name='TestCourse')
+        self.assertTrue(course.exists())
+        for a_course in course:
+            self.assertEqual(str(a_course), f"{a_course.course_name} {a_course.course_date_begin}")
+
+    def test_attendee_is_created(self):
+        attendee = Attendee.objects.filter(attendee_last_name_rus='ТестФамилия')
+        self.assertTrue(attendee.exists())
+        for a_attendee in attendee:
+            self.assertEqual(str(a_attendee), f"{a_attendee.attendee_first_name_rus} {a_attendee.attendee_last_name_rus}")
