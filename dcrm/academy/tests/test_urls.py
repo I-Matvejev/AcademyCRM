@@ -21,7 +21,7 @@ class AuthorizedUserUrlsTest(TestCase):
             course_status='TestStatus'
         )
 
-        Attendee.objects.create(
+        attendee = Attendee.objects.create(
             attendee_course_id=course,
             attendee_last_name_rus='ТестФамилия',
             attendee_first_name_rus='ТестИмя',
@@ -53,78 +53,78 @@ class AuthorizedUserUrlsTest(TestCase):
         # Course urls
 
     def test_new_course_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/new-course/')
+        response = self.authorized_client.get(reverse('new_course'))
         self.assertEqual(response.status_code, 200)
 
     def test_new_course_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/new-course/')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('new_course'))
+        self.assertRedirects(response, reverse('home'))
 
     def test_all_courses_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/all-courses/')
+        response = self.authorized_client.get(reverse('all_courses'))
         self.assertEqual(response.status_code, 200)
 
     def test_all_courses_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/all-courses/')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('all_courses'))
+        self.assertRedirects(response, reverse('home'))
 
     def test_update_course_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/update-course/1')
+        response = self.authorized_client.get(reverse('update_course', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 200)
 
     def test_update_course_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/update-course/1')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('update_course', kwargs={'pk': 1}))
+        self.assertRedirects(response, reverse('home'))
 
     def test_delete_course_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/delete-course/1')
-        self.assertRedirects(response, '/')
+        response = self.authorized_client.get(reverse('delete_course', kwargs={'pk': 1}))
+        self.assertRedirects(response, reverse('home'))
 
     def test_delete_course_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/delete-course/1')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('delete_course', kwargs={'pk': 1}))
+        self.assertRedirects(response, reverse('home'))
 
     def test_course_attendees_all_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/course-attendees-all/1')
+        response = self.authorized_client.get(reverse('course_attendees_all', kwargs={'course_id': 1}))
         self.assertEqual(response.status_code, 200)
 
     def test_course_attendees_all_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/course-attendees-all/1')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('course_attendees_all', kwargs={'course_id': 1}))
+        self.assertRedirects(response, reverse('home'))
 
         # Attendee urls
 
     def test_attendees_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/attendees/')
+        response = self.authorized_client.get(reverse('attendees'))
         self.assertEqual(response.status_code, 200)
 
     def test_attendees_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/attendees/')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('attendees'))
+        self.assertRedirects(response, reverse('home'))
 
     def test_delete_attendee_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/delete-attendee/1')
-        self.assertRedirects(response, '/course-attendees-all/1')
+        response = self.authorized_client.get(reverse('delete_attendee', kwargs={'pk': 1}))
+        self.assertRedirects(response, reverse('course_attendees_all', kwargs={'course_id': 1}))
 
     def test_delete_attendee_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/delete-attendee/1')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('delete_attendee', kwargs={'pk': 1}))
+        self.assertRedirects(response, reverse('home'))
 
     def test_update_attendee_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/update-attendee/1')
+        response = self.authorized_client.get(reverse('update_attendee', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 200)
 
     def test_update_attendee_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/update-attendee/1')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('update_attendee', kwargs={'pk': 1}))
+        self.assertRedirects(response, reverse('home'))
 
     def test_add_attendee_url_exists_at_desired_location(self):
-        response = self.authorized_client.get('/course-attendees-all/1/add-attendee/')
+        response = self.authorized_client.get(reverse('add_attendee', kwargs={'course_id': 1}))
         self.assertEqual(response.status_code, 200)
 
     def test_add_attendee_url_redirect_anonymous_user(self):
-        response = self.guest_client.get('/course-attendees-all/1/add-attendee/')
-        self.assertRedirects(response, '/')
+        response = self.guest_client.get(reverse('add_attendee', kwargs={'course_id': 1}))
+        self.assertRedirects(response, reverse('home'))
 
     # Template tests:
 
@@ -132,9 +132,9 @@ class AuthorizedUserUrlsTest(TestCase):
 
     def test_urls_use_correct_templates(self):
         templates_url_names = {
-            'all_courses.html': '/all-courses/',
-            'attendees.html': '/attendees/',
-            'new_course.html': '/new-course/',
+            'all_courses.html': reverse('all_courses'),
+            'attendees.html': reverse('attendees'),
+            'new_course.html': reverse('new_course'),
         }
         for template, address in templates_url_names.items():
             with self.subTest(address=address):
