@@ -48,6 +48,7 @@ class AuthorizedUserUrlsTest(TestCase):
         # Authorize user
         self.authorized_client.force_login(self.user)
 
+        self.login_user = User.objects.create_user(username='testuser', password='testpassword')
         # Availability of pages to authorized user and redirect unauth
 
         # Course urls
@@ -193,3 +194,13 @@ class AuthorizedUserUrlsTest(TestCase):
     def test_course_is_created(self):
         course = Course.objects.get(course_name='TestCourse')
         self.assertEqual(str(course), f"{course.course_name} {course.course_date_begin}")
+
+    # Test user login
+
+    def test_user_login(self):
+        response = self.client.post(reverse('home'), {'username': 'testuser', 'password': 'testpassword'})
+        self.assertRedirects(response, reverse('home'))
+
+    def test_user_login_fails(self):
+        response = self.guest_client.post(reverse('home'), {'username': 'user', 'password': 'password'})
+        self.assertEqual(response.status_code, 200)
