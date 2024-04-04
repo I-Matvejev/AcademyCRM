@@ -1,4 +1,4 @@
-from django.test import TransactionTestCase, Client
+from django.test import TestCase, Client
 from ..models import Course, Attendee
 from django.urls import reverse
 from ..forms import NewCourseForm, CourseAttendeesForm
@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class NewCourseFormTest(TransactionTestCase):
+class NewCourseFormTest(TestCase):
 
     def setUp(self):
         # Unauthorized client

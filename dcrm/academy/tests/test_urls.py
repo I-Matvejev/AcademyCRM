@@ -69,27 +69,33 @@ class AuthorizedUserUrlsTest(TestCase):
         self.assertRedirects(response, reverse('home'))
 
     def test_update_course_url_exists_at_desired_location(self):
-        response = self.authorized_client.get(reverse('update_course', kwargs={'pk': 1}))
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.authorized_client.get(reverse('update_course', kwargs={'pk': course.id}))
         self.assertEqual(response.status_code, 200)
 
     def test_update_course_url_redirect_anonymous_user(self):
-        response = self.guest_client.get(reverse('update_course', kwargs={'pk': 1}))
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.guest_client.get(reverse('update_course', kwargs={'pk': course.id}))
         self.assertRedirects(response, reverse('home'))
 
     def test_delete_course_url_exists_at_desired_location(self):
-        response = self.authorized_client.get(reverse('delete_course', kwargs={'pk': 1}))
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.authorized_client.get(reverse('delete_course', kwargs={'pk': course.id}))
         self.assertRedirects(response, reverse('home'))
 
     def test_delete_course_url_redirect_anonymous_user(self):
-        response = self.guest_client.get(reverse('delete_course', kwargs={'pk': 1}))
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.guest_client.get(reverse('delete_course', kwargs={'pk': course.id}))
         self.assertRedirects(response, reverse('home'))
 
     def test_course_attendees_all_url_exists_at_desired_location(self):
-        response = self.authorized_client.get(reverse('course_attendees_all', kwargs={'course_id': 1}))
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.authorized_client.get(reverse('course_attendees_all', kwargs={'course_id': course.id}))
         self.assertEqual(response.status_code, 200)
 
     def test_course_attendees_all_url_redirect_anonymous_user(self):
-        response = self.guest_client.get(reverse('course_attendees_all', kwargs={'course_id': 1}))
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.guest_client.get(reverse('course_attendees_all', kwargs={'course_id': course.id}))
         self.assertRedirects(response, reverse('home'))
 
     def test_logout_redirect(self):
@@ -107,27 +113,34 @@ class AuthorizedUserUrlsTest(TestCase):
         self.assertRedirects(response, reverse('home'))
 
     def test_delete_attendee_url_exists_at_desired_location(self):
-        response = self.authorized_client.get(reverse('delete_attendee', kwargs={'pk': 1}))
-        self.assertRedirects(response, reverse('course_attendees_all', kwargs={'course_id': 1}))
+        attendee = Attendee.objects.get(attendee_last_name_rus='ТестФамилия')
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.authorized_client.get(reverse('delete_attendee', kwargs={'pk': attendee.id}))
+        self.assertRedirects(response, reverse('course_attendees_all', kwargs={'course_id': course.id}))
 
     def test_delete_attendee_url_redirect_anonymous_user(self):
-        response = self.guest_client.get(reverse('delete_attendee', kwargs={'pk': 1}))
+        attendee = Attendee.objects.get(attendee_last_name_rus='ТестФамилия')
+        response = self.guest_client.get(reverse('delete_attendee', kwargs={'pk': attendee.id}))
         self.assertRedirects(response, reverse('home'))
 
     def test_update_attendee_url_exists_at_desired_location(self):
-        response = self.authorized_client.get(reverse('update_attendee', kwargs={'pk': 1}))
+        attendee = Attendee.objects.get(attendee_last_name_rus='ТестФамилия')
+        response = self.authorized_client.get(reverse('update_attendee', kwargs={'pk': attendee.id}))
         self.assertEqual(response.status_code, 200)
 
     def test_update_attendee_url_redirect_anonymous_user(self):
-        response = self.guest_client.get(reverse('update_attendee', kwargs={'pk': 1}))
+        attendee = Attendee.objects.get(attendee_last_name_rus='ТестФамилия')
+        response = self.guest_client.get(reverse('update_attendee', kwargs={'pk': attendee.id}))
         self.assertRedirects(response, reverse('home'))
 
     def test_add_attendee_url_exists_at_desired_location(self):
-        response = self.authorized_client.get(reverse('add_attendee', kwargs={'course_id': 1}))
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.authorized_client.get(reverse('add_attendee', kwargs={'course_id': course.id}))
         self.assertEqual(response.status_code, 200)
 
     def test_add_attendee_url_redirect_anonymous_user(self):
-        response = self.guest_client.get(reverse('add_attendee', kwargs={'course_id': 1}))
+        course = Course.objects.get(course_name='TestCourse')
+        response = self.guest_client.get(reverse('add_attendee', kwargs={'course_id': course.id}))
         self.assertRedirects(response, reverse('home'))
 
     # Template tests:
@@ -148,22 +161,26 @@ class AuthorizedUserUrlsTest(TestCase):
         # With kwargs
 
     def test_url_template_update_course(self):
-        url = reverse('update_course', kwargs={'pk': 1})
+        course = Course.objects.get(course_name='TestCourse')
+        url = reverse('update_course', kwargs={'pk': course.id})
         response = self.authorized_client.get(url)
         self.assertTemplateUsed(response, 'update_course.html')
 
     def test_url_template_update_attendee(self):
-        url = reverse('update_attendee', kwargs={'pk': 1})
+        attendee = Attendee.objects.get(attendee_last_name_rus='ТестФамилия')
+        url = reverse('update_attendee', kwargs={'pk': attendee.id})
         response = self.authorized_client.get(url)
         self.assertTemplateUsed(response, 'update_attendee.html')
 
     def test_url_template_course_attendees_all(self):
-        url = reverse('course_attendees_all', kwargs={'course_id': 1})
+        course = Course.objects.get(course_name='TestCourse')
+        url = reverse('course_attendees_all', kwargs={'course_id': course.id})
         response = self.authorized_client.get(url)
         self.assertTemplateUsed(response, 'course_attendees_all.html')
 
     def test_url_template_add_attendee(self):
-        url = reverse('add_attendee', kwargs={'course_id': 1})
+        course = Course.objects.get(course_name='TestCourse')
+        url = reverse('add_attendee', kwargs={'course_id': course.id})
         response = self.authorized_client.get(url)
         self.assertTemplateUsed(response, 'add_attendee.html')
 
