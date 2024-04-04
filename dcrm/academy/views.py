@@ -121,7 +121,7 @@ def update_attendee(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Данные успешно изменены!")
-            return redirect('attendee_detail', current_attendee.id)
+            return redirect('course_attendees_all', current_attendee.attendee_course_id.id)
         return render(request, 'update_attendee.html', {'form': form, 'current_attendee': current_attendee})
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
