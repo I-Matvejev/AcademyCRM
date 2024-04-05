@@ -1,0 +1,11 @@
+asgiref==3.7.2
+coverage==7.4.4
+Django==5.0.2
+django-stubs==4.2.7
+django-stubs-ext==4.2.7
+psycopg2==2.9.9
+sqlparse==0.4.4
+types-pytz==2024.1.0.20240203
+types-PyYAML==6.0.12.20240311
+typing-extensions==4.10.0
+tzdata==2024.1
