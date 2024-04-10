@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
-name_validator_rus = RegexValidator(r'^([А-Я][а-я-,. ]+[ ]*)+$')
-name_validator_eng = RegexValidator(r'^([A-Z][-,a-z. ]+[ ]*)+$')
+name_validator_rus = RegexValidator(r'^([А-Я][а-я-,.А-Я ]+[ ]*)+$')
+name_validator_eng = RegexValidator(r'^([A-Z][-,a-z.A-Z ]+[ ]*)+$')
 
 
 class Course(models.Model):
@@ -34,9 +34,9 @@ class Attendee(models.Model):
     attendee_last_name_eng = models.CharField(max_length=50, validators=[name_validator_eng])
     attendee_first_name_eng = models.CharField(max_length=20, validators=[name_validator_eng])
     attendee_email = models.EmailField(max_length=100)
-    attendee_phone = models.CharField(max_length=20)
+    attendee_phone = models.CharField(blank=True, max_length=20)
     attendee_company = models.CharField(max_length=100)
-    attendee_position = models.CharField(max_length=50)
+    attendee_position = models.CharField(blank=True, max_length=50)
     attendee_contract_number = models.CharField(blank=True, max_length=25)
     attendee_contract_status = models.CharField(choices=CONTRACT_CHOICES, default='Не направлен', verbose_name=('Статус договора'))
     attendee_invoice_status = models.CharField(choices=INVOICE_CHOICES, default='Не оплачен', verbose_name=('Статус счета'))
