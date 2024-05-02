@@ -14,18 +14,13 @@
               <th scope="col">Фамилия</th>
               <th scope="col">Имя Отчество</th>
               <th scope="col">Имя Фамилия (англ)</th>
-              <th scope="col">Эл. почта</th>
-              <th scope="col">Телефон</th>
               <th scope="col">Компания</th>
               <th scope="col">Должность</th>
               <th scope="col">Договор номер</th>
               <th scope="col">Статус договора</th>
               <th scope="col">Статус счета </th>
-              <th scope="col">Стоимость </th>
-              <th scope="col">ФИО к/л</th>
-              <th scope="col">Должность к/л</th>
               <th scope="col">Эл. почта к/л</th>
-              <th scope="col">Телефон к/л</th>
+              <th scope="col">Комментарии</th>
             </tr>
           </thead>
           <tbody>
@@ -35,18 +30,13 @@
                 <td><a href="{% url 'update_attendee' attendee.id %}">{{ attendee.attendee_last_name_rus }}</a></td>
                 <td>{{ attendee.attendee_first_name_rus }} {{ attendee.attendee_fathers_name_rus }}</td>
                 <td>{{ attendee.attendee_first_name_eng }} {{ attendee.attendee_last_name_eng }}</td>
-                <td>{{ attendee.attendee_email }}</td>
-                <td>{{ attendee.attendee_phone }}</td>
                 <td>{{ attendee.attendee_company }}</td>
                 <td>{{ attendee.attendee_position }}</td>
                 <td>{{ attendee.attendee_contract_number }}</td>
                 <td>{{ attendee.attendee_contract_status }}</td>
                 <td>{{ attendee.attendee_invoice_status }}</td>
-                <td>{{ attendee.attendee_course_price }}</td>
-                <td>{{ attendee.attendee_contact_last_name_rus }} {{ attendee.attendee_contact_first_name_rus }} {{ attendee.attendee_contact_fathers_name_rus }}</td>
-                <td>{{ attendee.attendee_contact_position }}</td>
                 <td>{{ attendee.attendee_contact_email }}</td>
-                <td>{{ attendee.attendee_contact_phone }}</td>
+                <td>{{ attendee.attendee_contact_comments }}</td>
             </tr>
             {% endfor %}
           {% else %}

@@ -19,7 +19,7 @@ def home(request):
             return redirect('home')
         else:
             messages.success(request, "Возникла проблема, попробуйте еще раз...")
-    upcoming_courses = Course.objects.filter(course_date_begin__gt=datetime.date.today()).order_by('course_date_begin')[:5].annotate(number_of_attendees=Count('attendee')).annotate(number_of_attendees_invoice_paid=Count(Case(When(Q(attendee__attendee_invoice_status='Оплачен') | Q(attendee__attendee_invoice_status='Постоплата'), then=1))))
+    upcoming_courses = Course.objects.filter(course_date_begin__gt=datetime.date.today()).order_by('course_date_begin')[:5].annotate(number_of_attendees=Count('attendee')).annotate(number_of_attendees_approved=Count(Case(When(Q(attendee__attendee_invoice_status='Оплачен') | Q(attendee__attendee_contract_status='Подписан') | Q(attendee__attendee_invoice_status='Постоплата'), then=1))))
     return render(request, 'home.html', {'upcoming_courses': upcoming_courses})
 
 
@@ -86,7 +86,7 @@ def update_course(request, pk):
 
 def course_attendees_all(request, course_id):
     if request.user.is_authenticated:
-        all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name_rus')
+        all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_company')
         current_course = Course.objects.get(pk=course_id)
         return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id, 'current_course': current_course})
     else:
