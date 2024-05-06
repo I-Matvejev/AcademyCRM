@@ -42,6 +42,7 @@ class Attendee(models.Model):
     attendee_invoice_status = models.CharField(choices=INVOICE_CHOICES, default='Не оплачен', verbose_name=('Статус счета'))
     attendee_contact_email = models.EmailField(blank=True, max_length=100)
     attendee_contact_comments = models.CharField(blank=True, max_length=300)
+    attendee_sub_course = models.CharField(blank=True, max_length=100)
 
     def __str__(self):
         return f"{self.attendee_first_name_rus} {self.attendee_last_name_rus}"

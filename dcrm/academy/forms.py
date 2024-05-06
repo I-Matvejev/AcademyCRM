@@ -26,13 +26,14 @@ class CourseAttendeesForm(forms.ModelForm):
     attendee_first_name_eng = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder": "Name", "class": "form-control"}), label="")
     attendee_email = forms.EmailField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder": "Электронная почта", "class": "form-control"}), label="")
     attendee_phone = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder": "Телефон", "class": "form-control"}), label="")
-    attendee_company = forms.CharField(widget=forms.widgets.TextInput(attrs={"placeholder": "Компания", "class": "form-control"}), label="")
+    attendee_company = forms.CharField(widget=forms.widgets.TextInput(attrs={"placeholder": "Компания (обязательное поле)", "class": "form-control"}), label="")
     attendee_position = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder": "Должность", "class": "form-control"}), label="")
     attendee_contract_number = forms.CharField(required=False, max_length=25, widget=forms.widgets.TextInput(attrs={"placeholder": "Номер договора", "class": "form-control"}), label="")
     attendee_contract_status = forms.Select(attrs={"placeholder": "Статус договора", "class": "form-control"})
     attendee_invoice_status = forms.Select(attrs={"placeholder": "Статус счета", "class": "form-control"})
-    attendee_contact_email = forms.EmailField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder": "Электронная почта контактного лица (опционально)", "class": "form-control"}), label="")
-    attendee_contact_comments = forms.CharField(required=False,  widget=forms.widgets.TextInput(attrs={"placeholder": "Комментарии (опционально)", "class": "form-control"}), label="")
+    attendee_contact_email = forms.EmailField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder": "Электронная почта контактного лица", "class": "form-control"}), label="")
+    attendee_contact_comments = forms.CharField(required=False,  widget=forms.widgets.TextInput(attrs={"placeholder": "Комментарии", "class": "form-control"}), label="")
+    attendee_sub_course = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"placeholder": "Часть курса", "class": "form-control"}), label="")
 
     class Meta:
         model = Attendee

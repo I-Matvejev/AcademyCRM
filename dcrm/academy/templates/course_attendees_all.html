@@ -21,6 +21,9 @@
               <th scope="col">Статус счета </th>
               <th scope="col">Эл. почта к/л</th>
               <th scope="col">Комментарии</th>
+                {% if part_of_course %}
+              <th scope="col">Подкурс</th>
+                {% endif %}
             </tr>
           </thead>
           <tbody>
@@ -37,6 +40,9 @@
                 <td>{{ attendee.attendee_invoice_status }}</td>
                 <td>{{ attendee.attendee_contact_email }}</td>
                 <td>{{ attendee.attendee_contact_comments }}</td>
+                  {% if part_of_course %}
+                <td>{{ attendee.attendee_sub_course }}</td>
+                  {% endif %}
             </tr>
             {% endfor %}
           {% else %}

@@ -88,7 +88,8 @@ def course_attendees_all(request, course_id):
     if request.user.is_authenticated:
         all_attendees = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_company')
         current_course = Course.objects.get(pk=course_id)
-        return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id, 'current_course': current_course})
+        part_of_course = Attendee.objects.filter(attendee_course_id=course_id).exclude(attendee_sub_course__isnull=True).exclude(attendee_sub_course__exact='')
+        return render(request, 'course_attendees_all.html', {'all_attendees': all_attendees, 'course_id': course_id, 'current_course': current_course, 'part_of_course': part_of_course})
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')
