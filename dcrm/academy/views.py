@@ -1,9 +1,18 @@
 import datetime
+import io
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db.models import Count, Case, When, Q
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
+from reportlab.platypus.tables import Table
+from reportlab.platypus import SimpleDocTemplate
+
 
 from .models import Course, Attendee
 from .forms import NewCourseForm, CourseAttendeesForm
@@ -151,3 +160,47 @@ def attendees(request):
     else:
         messages.success(request, "Вы не авторизованы для этого действия!")
         return redirect('home')
+
+
+def save_to_pdf(request, course_id):
+    buffer = io.BytesIO()
+    pdf_object = canvas.Canvas(buffer, pagesize=A4, bottomup=0)
+    pdfmetrics.registerFont(TTFont('DejaVuSerif', 'C:\\Users\\matve-il\\PycharmProjects\\dcrm\\dcrm\\academy\\djserif\\DejaVuSerif.ttf'))
+    font_name = "DejaVuSerif"
+    pdf_object.setFont(font_name, 12)
+
+    text_object = pdf_object.beginText()
+    text_object.setTextOrigin(0, 0)
+
+    attendees_to_print = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name_rus')
+    current_course = Course.objects.get(pk=course_id)
+
+    lines = []
+
+    for attendee in attendees_to_print:
+        lines.append("")
+        lines.append(attendee.attendee_last_name_rus)
+        lines.append(attendee.attendee_first_name_rus)
+        lines.append(attendee.attendee_company)
+        lines.append(attendee.attendee_position)
+        lines.append(attendee.attendee_contact_email)
+        lines.append(attendee.attendee_contact_comments)
+        lines.append("=================================")
+
+    for line in lines:
+        text_object.textLine(line)
+
+    # pdf_object.drawText(text_object)
+    # pdf_object.showPage()
+    # pdf_object.save()
+
+    elements = []
+
+    doc = SimpleDocTemplate(buffer, rightMargin=0, leftMargin=0, topMargin=0, bottomMargin=0)
+
+    table = Table(lines, colWidths=270, rowHeights=79)
+    elements.append(table)
+    doc.build(elements)
+
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename=f"{current_course}.pdf")
