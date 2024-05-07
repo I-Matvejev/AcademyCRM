@@ -5,14 +5,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db.models import Count, Case, When, Q
+
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
-from reportlab.platypus.tables import Table
-from reportlab.platypus import SimpleDocTemplate
-
 
 from .models import Course, Attendee
 from .forms import NewCourseForm, CourseAttendeesForm

@@ -18,6 +18,7 @@
               <th scope="col">Компания</th>
               <th scope="col">Должность</th>
               <th scope="col">Курс</th>
+              <th scope="col">Часть курса</th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +33,7 @@
                 <td>{{ attendee.attendee_company }}</td>
                 <td>{{ attendee.attendee_position }}</td>
                 <td><a href="{% url 'course_attendees_all' attendee.attendee_course_id.id %}">{{ attendee.attendee_course_id.course_name }}</a></td>
+                <td>{{ attendee.attendee_sub_course }}</td>
             </tr>
             {% endfor %}
           {% else %}
