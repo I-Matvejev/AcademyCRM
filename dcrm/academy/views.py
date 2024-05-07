@@ -170,7 +170,7 @@ def save_to_pdf(request, course_id):
     pdf_object.setFont(font_name, 12)
 
     text_object = pdf_object.beginText()
-    text_object.setTextOrigin(0, 0)
+    text_object.setTextOrigin(20, 20)
 
     attendees_to_print = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name_rus')
     current_course = Course.objects.get(pk=course_id)
@@ -179,28 +179,26 @@ def save_to_pdf(request, course_id):
 
     for attendee in attendees_to_print:
         lines.append("")
-        lines.append(attendee.attendee_last_name_rus)
-        lines.append(attendee.attendee_first_name_rus)
-        lines.append(attendee.attendee_company)
-        lines.append(attendee.attendee_position)
-        lines.append(attendee.attendee_contact_email)
-        lines.append(attendee.attendee_contact_comments)
-        lines.append("=================================")
+        lines.append(f"Фамилия: {attendee.attendee_last_name_rus}")
+        lines.append(f"Имя: {attendee.attendee_first_name_rus}")
+        lines.append(f"Отчество: {attendee.attendee_fathers_name_rus}")
+        lines.append(f"Компания: {attendee.attendee_company}")
+        lines.append(f"Должность: {attendee.attendee_position}")
+        if attendee.attendee_sub_course:
+            lines.append(f"Часть курса: {attendee.attendee_sub_course}")
+        lines.append("")
+        lines.append("=======================")
+
+    text_object.textLine(" ")
+    text_object.textLine(f"Слушатели курса: {current_course.course_name} {current_course.course_date_begin}")
+    text_object.textLine(" ")
 
     for line in lines:
         text_object.textLine(line)
 
-    # pdf_object.drawText(text_object)
-    # pdf_object.showPage()
-    # pdf_object.save()
-
-    elements = []
-
-    doc = SimpleDocTemplate(buffer, rightMargin=0, leftMargin=0, topMargin=0, bottomMargin=0)
-
-    table = Table(lines, colWidths=270, rowHeights=79)
-    elements.append(table)
-    doc.build(elements)
+    pdf_object.drawText(text_object)
+    pdf_object.showPage()
+    pdf_object.save()
 
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename=f"{current_course}.pdf")
