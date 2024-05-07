@@ -50,12 +50,13 @@
           {% endif %}
           </tbody>
         </table> <br/>
-        <a class="btn btn-primary btn-lg" href="{% url 'add_attendee' course_id %}" role="button">Добавить слушателя</a><br/>
-    <br/>
-        <a class="btn btn-primary btn-lg" href="{% url 'update_course' course_id %}" role="button">Изменить данные курса</a>
-        <a class="btn btn-secondary btn-lg" href="{% url 'save_to_pdf' course_id %}" role="button">Сохранить как pdf</a>
+    <div class="btn-group" style="width:100%">
+        <a class="btn btn-primary" style="width:25%; border:1px solid black" href="{% url 'add_attendee' course_id %}" role="button">Добавить слушателя</a>
+        <a class="btn btn-primary" style="width:25%; border:1px solid black" href="{% url 'update_course' course_id %}" role="button">Изменить данные курса</a>
+        <a class="btn btn-secondary" style="width:25%; border:1px solid black" href="{% url 'save_to_pdf' course_id %}" role="button">Сохранить как pdf</a>
+        <a class="btn btn-secondary" style="width:25%; border:1px solid black" href="{% url 'save_to_excel' course_id %}" role="button">Сохранить как excel</a>
+    </div>
 </div>
-
 {% else %}
 
 <h2> Вы должны быть авторизованы для просмотра этой страницы! </h2>

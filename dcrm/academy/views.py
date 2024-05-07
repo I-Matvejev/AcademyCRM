@@ -6,11 +6,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db.models import Count, Case, When, Q
 
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
+
+from openpyxl import Workbook
 
 from .models import Course, Attendee
 from .forms import NewCourseForm, CourseAttendeesForm
@@ -200,3 +202,29 @@ def save_to_pdf(request, course_id):
 
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename=f"{current_course}.pdf")
+
+
+def save_to_excel(request, course_id):
+    response = HttpResponse(content_type='application/ms-excel')
+    current_course = Course.objects.get(pk=course_id)
+    response['Content-Disposition'] = f'attachment; filename={current_course.course_name}.xlsx'
+
+    workbook = Workbook()
+    worksheet = workbook.active
+    worksheet.title = "Слушатели"
+
+    headers = ["Фамилия", "Имя", "Отчество", "Фамилия (англ)", "Имя (англ)", "Компания", "Должность", "Номер договора", "Статус договора", "Статус счета", "Эл. почта", "Комментарии", "Часть курса"]
+    worksheet.append(headers)
+
+    attendees_to_excel = Attendee.objects.filter(attendee_course_id=course_id).order_by('attendee_last_name_rus')
+    for attendee in attendees_to_excel:
+        worksheet.append([attendee.attendee_last_name_rus, attendee.attendee_first_name_rus,
+                          attendee.attendee_fathers_name_rus, attendee.attendee_last_name_eng,
+                          attendee.attendee_first_name_eng, attendee.attendee_company,
+                          attendee.attendee_position, attendee.attendee_contract_number,
+                          attendee.attendee_contract_status, attendee.attendee_invoice_status,
+                          attendee.attendee_contact_email, attendee.attendee_contact_comments,
+                          attendee.attendee_sub_course])
+
+    workbook.save(response)
+    return response

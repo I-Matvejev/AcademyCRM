@@ -16,4 +16,5 @@ urlpatterns = [
     path('update-attendee/<int:pk>', views.update_attendee, name='update_attendee'),
     path('course-attendees-all/<int:course_id>/add-attendee/', views.add_attendee, name='add_attendee'),
     path('save-to-pdf/<int:course_id>', views.save_to_pdf, name='save_to_pdf'),
+    path('save-to-excel/<int:course_id>', views.save_to_excel, name='save_to_excel'),
 ]
